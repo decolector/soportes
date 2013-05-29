@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Database y Video</title>
+	<script type="text/javascript"   src="js/taffy-min.js" charset="utf-8">		
+	</script>
+		 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" type="text/javascript"></script>
+	<script type="text/javascript" charset="utf-8">
+		$(document).ready(function(){
+			
+			db = TAFFY([
+				{
+					name:"margarita", 
+					url: "http://ia700509.us.archive.org/32/items/DandelionFreeCulture/blossomCrossClose_HD.ogv",
+					tags: "flor, naturaleza, lindo",
+					color: "amarillo"
+				},
+				{
+					name: "flor 02",
+					url:"http://ia700509.us.archive.org/32/items/DandelionFreeCulture/explosiveWide_HD.ogv",
+					tags: "semillas, naturaleza, lindo",
+					color: "blanco"
+				},
+				{
+					name: "marchita",
+					url: "http://ia700509.us.archive.org/32/items/DandelionFreeCulture/wishSquidWide_HD.ogv",
+					tags: "flor, naturaleza, feo",
+					color: "gris"
+				},
+				{
+					name: "danza",
+					url: "http://ia600607.us.archive.org/24/items/VjClips03-BellyDance2/Sequence65.ogv",
+					tags: "cuerpo, mujer, lindo",
+					color: "amarillo"
+					
+				},
+				{
+					name: "luna",
+					url: "http://ia700401.us.archive.org/11/items/Architects_of_Tomorrow/2007-11-11-00-28-29.ogv",
+					tags: "universo, naturaleza, maso",
+					color: "gris"
+				},
+				{
+					name: "manchas",
+					url:"http://ia700300.us.archive.org/26/items/FREE_VJ_LOOPS-from_www.vjloops.tv/lightwave_abpro1_130.ogv",
+					tags: "abstracto, planos, feo",
+					color: "amarillo"
+				},
+				{
+					name: "caleidoscopio",
+					url: "http://ia600307.us.archive.org/29/items/theNightLab_VJLoops_lightmotiv.content_01-11/theNightLab_lightmotiv-vjloops_03.ogv",
+					tags: "abstracto, planos, maso",
+					color: "azul"
+				},
+				{
+					name: "barras",
+					url: "http://ia700309.us.archive.org/25/items/Free_VJ_LOOPS_created_with_THRILL_SERIES_10/3L_bars_20.ogv",
+					tags: "abstracto, lineas, maso",
+					color: "azul"
+				},
+				{
+					name: "oriental",
+					url: "http://ia600609.us.archive.org/25/items/VjClips02-BellyDance1/Sequence37.ogv",
+					tags: "cuerpo, mujer, feo ",
+					color: "rojo"
+				},			
+				]);
+				
+				console.log(db().count());
+			});
+			
+			function searchVid(){
+				var tag = $("#tag").val();
+				var color = $("#color").val();
+				
+				if(tag !== null && color !== null){
+					console.log("bang");
+					$("#result").empty();
+					db({"tags": {like:tag}}, {"color": color}).each(function(record, recordnum){
+						console.log(recordnum);
+						$("article").append('<video src="'+record.url+'" type="video/ogg" autoplay ></video>');
+					})
+				}
+			}
+	</script>
+</head>
+<body>
+	<header>
+		Database, Video y JQuery
+	</header>
+	<form action="index_submit" method="get" accept-charset="utf-8">
+		tag
+		<input id="tag" value="lindo" name="tag">
+		color
+		<input id="color" value="amarillo" label="color">
+		<p><input type="button" value="Search &rarr;" onclick="searchVid()"></p>
+	</form>
+	<article id="result">
+		
+	</article>
+</body>
+</html>
