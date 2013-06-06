@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Visualizacion con d3</title>
+		<script type="text/javascript" charset="utf-8" src="js/d3.js"></script>	
+		<style type="text/css" media="screen">
+			.line{
+				fill:none;
+				stroke:#000000;
+				stroke-width:1px;
+			}
+			
+			#draw{
+				border:solid black 0.5px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1 id="gdp_argentina_1990_-_2012">GDP Argentina 1990 - 2012</h1>
+		<svg id="draw" width="900"  height="400" xmlns="http://www.w3.org/2000/svg">
+		</svg>
+		
+	<script type="text/javascript" charset="utf-8">
+	
+		var svg = d3.select("#draw");
+		
+		var line = d3.svg.line()
+		.x(function(d){
+			console.log(d.year);
+			return d.year;
+		})
+		.y(function(d){
+			return d.gdp;
+		});
+		
+		d3.csv("data/gdp_ar_percapita_1990_2012.csv", function(error, data){
+			
+			data.forEach(function(d){
+				d.year = (d.year - 1990) * (900/22);
+				d.gdp = Math.round(d.gdp) * -0.01;
+			});
+			
+			svg.append("path")
+				.datum(data)
+				.attr("transform", "translate(0, 400)")
+				.attr("class", "line")
+				.attr("d", line);
+		});			
+
+	</script>
+	
+	</body>
+</html>
