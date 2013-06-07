@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Visualizacion con d3</title>
+		<script type="text/javascript" charset="utf-8" src="js/d3.js"></script>	
+		<style type="text/css" media="screen">
+			.line{
+				fill:none;
+				stroke:#000000;
+				stroke-width:1px;
+			}
+			
+			#draw{
+				border:solid black 0.5px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1 id="titulo">Distribucion de dulces M&M por color</h1>
+		
+	<script type="text/javascript" charset="utf-8">
+		var dibujo = d3.select("body").append("svg");
+		
+		dibujo.attr("width", 600)
+			.attr("height", 3500)
+		
+		d3.tsv("data/MM.tsv", function(error, data){
+			console.log(data);
+			
+			data.forEach(function(d, index){
+				
+				//posicion en y
+				var posy = (index + 1) * 50;
+				
+				//columna roja
+				dibujo.append("circle")
+				.attr("cx", 50)
+				.attr("cy", posy )
+				.attr("r", d.red)
+				.attr("style","fill:red;");
+				
+				//columna verde
+				dibujo.append("circle")
+				.attr("cx", 100)
+				.attr("cy", posy )
+				.attr("r", d.green)
+				.attr("style","fill:green;");
+				
+				//columna azul
+				dibujo.append("circle")
+				.attr("cx", 150)
+				.attr("cy", posy )
+				.attr("r", d.blue)
+				.attr("style","fill:blue;");
+				
+				//columna naranja
+				dibujo.append("circle")
+				.attr("cx", 200)
+				.attr("cy", posy )
+				.attr("r", d.orange)
+				.attr("style","fill:orange;");
+				
+				//columna roja
+				dibujo.append("circle")
+				.attr("cx", 250)
+				.attr("cy", posy )
+				.attr("r", d.yellow)
+				.attr("style","fill:yellow;");
+				
+				//columna marron
+				dibujo.append("circle")
+				.attr("cx", 300)
+				.attr("cy", posy )
+				.attr("r", d.brown)
+				.attr("style","fill:brown;");
+				
+				//peso de cada paquete
+				dibujo.append("circle")
+				.attr("cx", 400)
+				.attr("cy", posy )
+				.attr("r", d.weight)
+				.attr("style","fill:grey; stroke:black;stroke-width:1.5px");
+			});
+			
+		});
+	</script>
+	
+	</body>
+</html>
